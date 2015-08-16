@@ -26,6 +26,18 @@ ul {
 	text-indent: -1em;
 }
 
+
+.red{
+    color:red;
+    }
+.form-area
+{
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	margin: 10px 0px 60px;
+	border: 1px solid GREY;
+	}
+
 a,
 a:hover,
 a:focus,
