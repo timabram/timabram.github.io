@@ -26,25 +26,13 @@ ul {
 	text-indent: -1em;
 }
 
-
-.red{
-    color:red;
-    }
-.form-area
-{
-    background-color: #FAFAFA;
-	padding: 10px 40px 60px;
-	margin: 10px 0px 60px;
-	border: 1px solid GREY;
-	}
-
 a,
 a:hover,
 a:focus,
 a:active,
 a.active {
     outline: 0;
-    color: #18bc9c;
+    color: #31698a;
 }
 
 a.white, 
@@ -91,7 +79,7 @@ hr.star-light {
 
 hr.star-light:after {
     color: #fff;
-    background-color: #18bc9c;
+    background-color: #31698a;
 }
 
 hr.star-primary {
@@ -110,7 +98,7 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: #18bc9c;
+    background: #31698a;
 }
 
 header .container {
@@ -209,7 +197,7 @@ section h2 {
 
 section.success {
     color: #fff;
-    background: #18bc9c;
+    background: #31698a;
 }
 
 section.success a,
@@ -236,7 +224,7 @@ section.success a.active {
 #skills {
     text-align: center;
     color: #fff;
-    background: #18bc9c;
+    background: #31698a;
 }
 #skills .intro-text .subtitle {
 	color: #fff;
@@ -250,7 +238,7 @@ section.success a.active {
 #links {
     text-align: left;
     color: #fff;
-    background: #18bc9c;
+    background: #31698a;
 }
 
 
@@ -325,7 +313,7 @@ section.success a.active {
 .btn-outline:active,
 .btn-outline.active {
     border: solid 2px #fff;
-    color: #18bc9c;
+    color: #31698a;
     background: #fff;
 }
 
@@ -378,7 +366,7 @@ section.success a.active {
 }
 
 .floating-label-form-group-with-focus label {
-    color: #18bc9c;
+    color: #31698a;
 }
 
 form .row:first-child .floating-label-form-group {
