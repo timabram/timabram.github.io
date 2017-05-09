@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>three.js css3d - panorama</title>
+		<title>three.js css3d - panorama - deviceorientation</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -31,20 +31,15 @@
 	</head>
 	<body>
 		<script src="Sandbox/three.js"></script>
+		<script src="Sandbox/DeviceOrientationControls.js"></script>
 		<script src="Sandbox/CSS3DRenderer.js"></script>
 
-		<div id="info"><a href="http://threejs.org" target="_blank">three.js css3d</a> - panorama demo. cubemap by <a href="http://www.humus.name/index.php?page=Textures" target="_blank">Humus</a>.</div>
+		<div id="info"><a href="http://threejs.org" target="_blank">three.js css3d</a> - panorama - decideorientation. cubemap by <a href="http://www.humus.name/index.php?page=Textures" target="_blank">Humus</a>.</div>
 
 		<script>
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
-			var target = new THREE.Vector3();
-
-			var lon = 90, lat = 0;
-			var phi = 0, theta = 0;
-
-			var touchX, touchY;
 
 			init();
 			animate();
@@ -52,6 +47,8 @@
 			function init() {
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+
+				controls = new THREE.DeviceOrientationControls( camera );
 
 				scene = new THREE.Scene();
 
@@ -88,6 +85,9 @@
 					}
 				];
 
+				var cube = new THREE.Object3D();
+				scene.add( cube );
+
 				for ( var i = 0; i < sides.length; i ++ ) {
 
 					var side = sides[ i ];
@@ -99,7 +99,7 @@
 					var object = new THREE.CSS3DObject( element );
 					object.position.fromArray( side.position );
 					object.rotation.fromArray( side.rotation );
-					scene.add( object );
+					cube.add( object );
 
 				}
 
@@ -108,12 +108,6 @@
 				document.body.appendChild( renderer.domElement );
 
 				//
-
-				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				document.addEventListener( 'wheel', onDocumentMouseWheel, false );
-
-				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-				document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -128,79 +122,11 @@
 
 			}
 
-			function onDocumentMouseDown( event ) {
-
-				event.preventDefault();
-
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-
-			}
-
-			function onDocumentMouseMove( event ) {
-
-				var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-				var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-
-				lon -= movementX * 0.1;
-				lat += movementY * 0.1;
-
-			}
-
-			function onDocumentMouseUp( event ) {
-
-				document.removeEventListener( 'mousemove', onDocumentMouseMove );
-				document.removeEventListener( 'mouseup', onDocumentMouseUp );
-
-			}
-
-			function onDocumentMouseWheel( event ) {
-
-				camera.fov += event.deltaY * 0.05;
-				camera.updateProjectionMatrix();
-
-			}
-
-			function onDocumentTouchStart( event ) {
-
-				event.preventDefault();
-
-				var touch = event.touches[ 0 ];
-
-				touchX = touch.screenX;
-				touchY = touch.screenY;
-
-			}
-
-			function onDocumentTouchMove( event ) {
-
-				event.preventDefault();
-
-				var touch = event.touches[ 0 ];
-
-				lon -= ( touch.screenX - touchX ) * 0.1;
-				lat += ( touch.screenY - touchY ) * 0.1;
-
-				touchX = touch.screenX;
-				touchY = touch.screenY;
-
-			}
-
 			function animate() {
 
 				requestAnimationFrame( animate );
 
-				lon +=  0.1;
-				lat = Math.max( - 85, Math.min( 85, lat ) );
-				phi = THREE.Math.degToRad( 90 - lat );
-				theta = THREE.Math.degToRad( lon );
-
-				target.x = Math.sin( phi ) * Math.cos( theta );
-				target.y = Math.cos( phi );
-				target.z = Math.sin( phi ) * Math.sin( theta );
-
-				camera.lookAt( target );
-
+				controls.update();
 				renderer.render( scene, camera );
 
 			}
